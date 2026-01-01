@@ -1,0 +1,36 @@
+<style>
+    @import url("/src/styles/global.css");
+
+    .box {
+        border: 1px solid black;
+        display: flex;
+        flex-direction: column;
+        background-color: #fbfbfb;
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        flex-grow: 1;
+    }
+
+    .content img {
+        margin-left: 20%;
+        max-width: 60%;
+    }
+</style>
+
+<script>
+    
+</script>
+
+<div class="box">
+    <span slot="title">
+        <slot name="title"></slot>
+    </span>
+    <div class="content">
+        <slot name="content">
+            <span>Default conaaatent</span>
+        </slot>
+    </div>
+</div>

@@ -1,13 +1,19 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Vite + Preact + TS</title>
-  </head>
-  <body>
-    <div id="app"></div>
-    <script type="module" src="/src/main.tsx"></script>
-  </body>
+<head>
+  <meta charset="UTF-8">
+<link href="/src/styles/global.css" rel="stylesheet" />  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My First Web Component with TypeScript</title>
+</head>
+<body>
+  <div class="main">
+    <devi-header></devi-header>
+    <devi-gallery name="TypeScript"></devi-gallery>
+  </div>
+  <script type="module" src="./dependencies/marked.umd.js"></script>
+
+  <script type="module" src="./components/header/Header.js"></script>
+  <script type="module" src="./components/deviation/Deviation.js"></script>
+  <script type="module" src="./components/gallery/Gallery.js"></script>
+</body>
 </html>

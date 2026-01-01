@@ -1,0 +1,30 @@
+<style>
+    @import url("/src/styles/global.css");
+
+    .box {
+        display: flex;
+        flex-direction: column;
+        background-color: #fbfbfb;
+    }
+
+    .content {
+        display: grid;
+        grid-gap: 10px;
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        grid-auto-rows: 10px;
+        background-color: dodgerblue;
+    }
+
+</style>
+
+<script>
+
+</script>
+
+<div class="box">
+    <span slot="title">
+        <slot name="title"></slot>
+    </span>
+    <div class="content">
+    </div>
+</div>
