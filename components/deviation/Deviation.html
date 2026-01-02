@@ -1,36 +1,42 @@
 <style>
-    @import url("/src/styles/global.css");
+  @import url("/src/styles/global.css");
 
-    .box {
-        border: 1px solid black;
-        display: flex;
-        flex-direction: column;
-        background-color: #fbfbfb;
-    }
+  .box {
+    display: flex;
+    flex-direction: column;
+    transition: scale 0.1s;
+  }
 
-    .content {
-        display: flex;
-        flex-direction: column;
-        flex-grow: 1;
-    }
+  .scale:hover {
+    scale: 1.05;
+    cursor: pointer;
+  }
 
+  .content img {
+    max-width: 50vw;
+    max-height: 80vh;
+  }
+
+  .scale .content img {
+    max-width: 100%;
+    border-radius: 1rem;
+  }
+
+  .title {
+    width: 100%;
+    text-align: center;
+  }
+
+  @media screen and (max-width: 768px) {
     .content img {
-        margin-left: 20%;
-        max-width: 60%;
+      max-width: 100%;
+      max-height: 100%;
     }
+  }
 </style>
 
-<script>
-    
-</script>
+<script></script>
 
-<div class="box">
-    <span slot="title">
-        <slot name="title"></slot>
-    </span>
-    <div class="content">
-        <slot name="content">
-            <span>Default conaaatent</span>
-        </slot>
-    </div>
+<div class="box scale">
+  <div class="content"></div>
 </div>

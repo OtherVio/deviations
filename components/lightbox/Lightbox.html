@@ -1,0 +1,32 @@
+<style>
+  @import url("/src/styles/global.css");
+
+  .content {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #lightbox {
+    max-height: 80%;
+    border-radius: 2ch;
+    border: 0;
+  }
+
+  #lightbox::backdrop {
+    background-color: #02052b5e;
+    backdrop-filter: blur(1rem);
+  }
+
+  #lightbox:focus {
+    outline: none;
+    border: none;
+  }
+</style>
+
+<script></script>
+
+<div class="content">
+  <dialog id="lightbox" closedby="any"></dialog>
+</div>
+<output></output>

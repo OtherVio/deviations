@@ -1,19 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-<link href="/src/styles/global.css" rel="stylesheet" />  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>My First Web Component with TypeScript</title>
-</head>
-<body>
-  <div class="main">
-    <devi-header></devi-header>
-    <devi-gallery name="TypeScript"></devi-gallery>
-  </div>
-  <script type="module" src="./dependencies/marked.umd.js"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <link href="/src/styles/global.css" rel="stylesheet" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>OtherVio</title>
+  </head>
+  <body>
+    <div class="main">
+      <devi-header></devi-header>
+      <devi-gallery name="TypeScript"></devi-gallery>
+    </div>
+    <script type="module" src="./dependencies/marked.umd.js"></script>
+    <script type="module" src="./state/TagsObserver.js"></script>
+    <script type="module" src="./state/FiltersObserver.js"></script>
+    <script type="module" src="./state/LightboxService.js"></script>
 
-  <script type="module" src="./components/header/Header.js"></script>
-  <script type="module" src="./components/deviation/Deviation.js"></script>
-  <script type="module" src="./components/gallery/Gallery.js"></script>
-</body>
+    <script type="module" src="./components/lightbox/Lightbox.js"></script>
+    <script type="module" src="./components/filters/Filters.js"></script>
+    <script type="module" src="./components/tag-filter/TagFilter.js"></script>
+    <script type="module" src="./components/header/Header.js"></script>
+    <script type="module" src="./components/deviation/Deviation.js"></script>
+    <script type="module" src="./components/gallery/Gallery.js"></script>
+  </body>
 </html>
