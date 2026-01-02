@@ -30,9 +30,9 @@ fetch("/components/lightbox/Lightbox.html")
         this.render();
       }
 
-      render() {}
-
       open() {
+        this.shadowRoot.querySelector("#next").onclick = () => window.lightboxService.next();
+        this.shadowRoot.querySelector("#previous").onclick = () => window.lightboxService.previous();
         this.#shadowRoot.querySelector("dialog").showModal();
       }
     }

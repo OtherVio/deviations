@@ -126,7 +126,7 @@ fetch("/components/gallery/Gallery.html")
       }
 
       getDeviations() {
-        return this.#shadowRoot.querySelectorAll("devi-deviation");
+        return this.#shadowRoot.querySelectorAll(".item:not(.hidden) devi-deviation");
       }
 
       filter(filters) {
