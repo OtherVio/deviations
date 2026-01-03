@@ -25,6 +25,8 @@
 
     .content {
         width: 100%;
+        max-height: 70%;
+        overflow-y: scroll;
     }
 
     span {
@@ -33,6 +35,15 @@
 
     .footer {
         margin-top: auto;
+    }
+
+    .content::-webkit-scrollbar {
+        display: none;
+    }
+
+    .content {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
     }
 
     @media (max-width: 768px) {
