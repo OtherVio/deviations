@@ -86,20 +86,14 @@ fetch("/components/deviation/Deviation.html")
         if (!this.image) return;
 
         const content = this.shadowRoot.querySelectorAll(".content")[0];
-        content.innerHTML = `<img loading="lazy" src="/deviations/images/${this.image}" onload="window.imageLoading.loaded('${this.deviationName}')"/>`;
+        content.innerHTML = `<a href="#${this.deviationName}"><img loading="lazy" src="/deviations/images/${this.image}" onload="window.imageLoading.loaded('${this.deviationName}')"/></a>`;
 
         if (!this.#thumbnail) {
-          this.onclick = undefined;
           this.shadowRoot.querySelectorAll(".box")[0].classList.remove("scale");
           content.innerHTML += marked.parse(this.#markdown);
         } else {
-          this.onclick = () => window.lightboxService.openLightbox(this.id);
           this.shadowRoot.querySelectorAll(".box")[0].classList.add("scale");
         }
-      }
-
-      open() {
-        this.onclick();
       }
     }
     customElements.define("devi-deviation", Deviation);
