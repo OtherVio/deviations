@@ -29,7 +29,7 @@ fetch("/components/gallery/Gallery.html")
             window.deviationLoading.deviationsToLoad = deviationNames;
             window.imageLoading.deviationsToLoad = deviationNames;
             deviationNames.forEach((deviationName) => {
-              fetch("/deviations/" + deviationName + ".md")
+              fetch("/deviations/" + deviationName + ".dev")
                 .then((stream) => stream.text())
                 .then((txt) => {
                   let arr = txt.split("---");
