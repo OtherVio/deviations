@@ -63,6 +63,7 @@ fetch("/components/gallery/Gallery.html")
 
                     element.title = title;
                     element.date = new Date(date);
+                    console.log("set date to", new Date(date), date);
                     element.image = image;
                     element.thumbnail = true;
                     element.deviationName = deviationName;
