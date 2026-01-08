@@ -75,6 +75,7 @@ fetch("/components/gallery/Gallery.html")
                     const tags = dict;
 
                     const year = element.date.getFullYear();
+                    console.log(element, year, window.years.years);
                     if (!(year in this.#deviationsByYear))
                       this.#deviationsByYear[year] = [];
                     this.#deviationsByYear[year].push(deviationName);
