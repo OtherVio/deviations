@@ -58,12 +58,11 @@ fetch("/components/gallery/Gallery.html")
                     element.markdown = arr[2];
 
                     const title = dict["title"];
-                    const date = dict["date"];
+                    const date = dict["date"].replace(/-/g, "/");
                     const image = dict["image"];
 
                     element.title = title;
                     element.date = new Date(date);
-                    console.log("set date to", new Date(date), date);
                     element.image = image;
                     element.thumbnail = true;
                     element.deviationName = deviationName;
@@ -76,7 +75,6 @@ fetch("/components/gallery/Gallery.html")
                     const tags = dict;
 
                     const year = element.date.getFullYear();
-                    console.log(element, year, window.years.years);
                     if (!(year in this.#deviationsByYear))
                       this.#deviationsByYear[year] = [];
                     this.#deviationsByYear[year].push(deviationName);
@@ -187,7 +185,23 @@ fetch("/components/gallery/Gallery.html")
           deviationIds.push(deviation.id);
         }
 
-        if (filters["from"]) {
+        if (filters["to"] && filters["from"]) {
+          let fromYearDeviations = [];
+          for (let year in this.#deviationsByYear) {
+            if ((year >= filters["from"]
+              && year <= filters["to"]) 
+              || (year <= filters["from"]
+              && year >= filters["to"])
+            ) {
+              fromYearDeviations.push(...this.#deviationsByYear[year]);
+            }
+          }
+
+          deviationIds = deviationIds.filter((d) =>
+            fromYearDeviations.includes(d.split("item-")[1])
+          );
+        }
+        else if (filters["from"]) {
           // iterate over each key in deviations by year
           // append that year's list if that year is >= from
           let fromYearDeviations = [];
@@ -202,7 +216,7 @@ fetch("/components/gallery/Gallery.html")
           );
         }
 
-        if (filters["to"]) {
+        else if (filters["to"]) {
           // iterate over each key in deviations by year
           // append that year's list if that year is <= to
           let fromYearDeviations = [];
@@ -254,7 +268,7 @@ fetch("/components/gallery/Gallery.html")
           (item.querySelectorAll("devi-deviation")[0].getBoundingClientRect()
             .height +
             rowGap) /
-            (rowHeight + rowGap)
+          (rowHeight + rowGap)
         );
 
         item.style.gridRowEnd = "span " + rowSpan;

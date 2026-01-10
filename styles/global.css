@@ -17,8 +17,16 @@ body {
   flex-grow: 1;
 }
 
+.mobile-footer {
+  display: none;
+}
+
 @media (max-width: 768px) {
   .main {
     flex-direction: column;
+  }
+
+  .mobile-footer {
+    display: block;
   }
 }

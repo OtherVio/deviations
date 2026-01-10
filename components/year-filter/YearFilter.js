@@ -32,7 +32,6 @@ fetch("/components/year-filter/YearFilter.html")
         from.onchange = this.selectFrom.bind(this);
 
         let years = window.years.years;
-        console.log(years);
         for (let year of years) {
           for (let el of [to, from]) {
             let option = document.createElement("option");

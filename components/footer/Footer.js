@@ -1,4 +1,4 @@
-fetch("/components/header/Header.html")
+fetch("/components/footer/Footer.html")
   .then((stream) => stream.text())
   .then((html) => {
     const template = document.createElement("template");
@@ -24,12 +24,9 @@ fetch("/components/header/Header.html")
       }
 
       render() {
-        let title = this.#shadowRoot.querySelector("h1");
-        title.innerText = window.themeService.title;
-
-        let description = this.#shadowRoot.querySelector(".description");
-        description.innerText = window.themeService.description;
+        let footer = this.#shadowRoot.querySelector(".footer");
+        footer.innerText = window.themeService.footer;
       }
     }
-    customElements.define("devi-header", Header);
+    customElements.define("devi-footer", Header);
   });
