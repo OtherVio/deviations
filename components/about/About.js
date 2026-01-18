@@ -20,6 +20,7 @@ fetch("/components/about/About.html")
         this.#shadowRoot = shadowRoot;
         shadowRoot.appendChild(templateContent.cloneNode(true));
         window.themeService.addObserver(this.render.bind(this));
+        this.render();
       }
 
       render() {
