@@ -7,5 +7,3 @@ filter-button-color: rgb(255, 255, 255)
 filter-button-text-color: rgb(44, 34, 68)
 
 title: OtherVio's site
-description: Welcome to my website! This is a work in progress ∠( ᐛ 」∠)＿
-footer: This is some footer text! Waoh. So Cool. The world is your oyster!
