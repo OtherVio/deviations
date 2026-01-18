@@ -264,7 +264,7 @@ fetch("/components/gallery/Gallery.html")
         window.page.pageCount = Math.ceil(deviationIds.length / itemsPerPage);
 
         if (deviationIds.length > 0)
-          for (let i = (pageNumber - 1) * itemsPerPage; i < pageNumber * itemsPerPage; i++) {
+          for (let i = (pageNumber - 1) * itemsPerPage; (i < pageNumber * itemsPerPage - 1) && (i < deviationIds.length); i++) {
             this.#shadowRoot
               .querySelector(`#${deviationIds[i]}`)
               .classList.remove("hidden");
