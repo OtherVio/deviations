@@ -9,6 +9,7 @@ fetch("/components/gallery/Gallery.html")
       #deviationsByTag = {};
       #deviationsByYear = {};
       #shadowRoot;
+      #page;
 
       constructor() {
         super();
@@ -65,7 +66,6 @@ fetch("/components/gallery/Gallery.html")
                     element.date = new Date(date);
                     element.image = image;
                     element.thumbnail = true;
-                    element.deviationName = deviationName;
                     parent.id = "item-" + deviationName;
 
                     delete dict["title"];
@@ -143,6 +143,9 @@ fetch("/components/gallery/Gallery.html")
                         .querySelectorAll(".content")[0]
                         .insertBefore(parent, referenceNode);
                     }
+
+                    // adding the deviation name indicates it has loaded...
+                    element.deviationName = deviationName;
                   } else {
                     shadowRoot.querySelectorAll(".content")[0].innerHTML =
                       "Missing deviation information.";
@@ -155,7 +158,9 @@ fetch("/components/gallery/Gallery.html")
               this.resizeAllGridItems.bind(this)
             );
             window.filters.addObserver(this.filter.bind(this));
+            window.page.addObserver(this.paginate.bind(this));
             window.imageLoading.addObserver(this.resizeAllGridItems.bind(this));
+            window.deviationLoading.addObserver(this.filter.bind(this));
           });
       }
 
@@ -165,91 +170,105 @@ fetch("/components/gallery/Gallery.html")
         );
       }
 
+      paginate(pageInfo) {
+        if (this.#page != pageInfo["page"]) {
+          this.#page = pageInfo["page"];
+          this.filter();
+        }
+      }
+
       filter(filters) {
+        let deviationIds = this.hideDeviations();
+
+        if (filters) {
+          if (filters["to"] && filters["from"]) {
+            let fromYearDeviations = [];
+            for (let year in this.#deviationsByYear) {
+              if ((year >= filters["from"]
+                && year <= filters["to"])
+                || (year <= filters["from"]
+                  && year >= filters["to"])
+              ) {
+                fromYearDeviations.push(...this.#deviationsByYear[year]);
+              }
+            }
+
+            deviationIds = deviationIds.filter((d) =>
+              fromYearDeviations.includes(d.split("item-")[1])
+            );
+          }
+          else if (filters["from"]) {
+            // iterate over each key in deviations by year
+            // append that year's list if that year is >= from
+            let fromYearDeviations = [];
+            for (let year in this.#deviationsByYear) {
+              if (year >= filters["from"]) {
+                fromYearDeviations.push(...this.#deviationsByYear[year]);
+              }
+            }
+
+            deviationIds = deviationIds.filter((d) =>
+              fromYearDeviations.includes(d.split("item-")[1])
+            );
+          }
+
+          else if (filters["to"]) {
+            // iterate over each key in deviations by year
+            // append that year's list if that year is <= to
+            let fromYearDeviations = [];
+            for (let year in this.#deviationsByYear) {
+              if (year <= filters["to"]) {
+                fromYearDeviations.push(...this.#deviationsByYear[year]);
+              }
+            }
+
+            deviationIds = deviationIds.filter((d) =>
+              fromYearDeviations.includes(d.split("item-")[1])
+            );
+          }
+
+          for (let tagName in this.#deviationsByTag) {
+            if (tagName in filters["tags"]) {
+              for (let tag in this.#deviationsByTag[tagName]) {
+                if (filters["tags"][tagName].includes(tag)) {
+                  deviationIds = deviationIds.filter((d) =>
+                    this.#deviationsByTag[tagName][tag].includes(
+                      d.split("item-")[1]
+                    )
+                  );
+                }
+              }
+            }
+          }
+        }
+
+        this.revealPagedDeviations(deviationIds);
+      }
+
+      hideDeviations() {
         const deviations = this.#shadowRoot.querySelectorAll(".item");
         let deviationIds = [];
-
-        if (
-          !Object.keys(filters["tags"]).length &&
-          !filters["from"] &&
-          !filters["to"]
-        ) {
-          for (let deviation of deviations) {
-            deviation.classList.remove("hidden");
-          }
-          return;
-        }
 
         for (let deviation of deviations) {
           deviation.classList.add("hidden");
           deviationIds.push(deviation.id);
         }
 
-        if (filters["to"] && filters["from"]) {
-          let fromYearDeviations = [];
-          for (let year in this.#deviationsByYear) {
-            if ((year >= filters["from"]
-              && year <= filters["to"]) 
-              || (year <= filters["from"]
-              && year >= filters["to"])
-            ) {
-              fromYearDeviations.push(...this.#deviationsByYear[year]);
-            }
+        return deviationIds;
+      }
+
+      revealPagedDeviations(deviationIds) {
+        let itemsPerPage = window.page.itemsPerPage;
+        let pageNumber = window.page.page;
+
+        window.page.pageCount = Math.ceil(deviationIds.length / itemsPerPage);
+
+        if (deviationIds.length > 0)
+          for (let i = (pageNumber - 1) * itemsPerPage; i < pageNumber * itemsPerPage; i++) {
+            this.#shadowRoot
+              .querySelector(`#${deviationIds[i]}`)
+              .classList.remove("hidden");
           }
-
-          deviationIds = deviationIds.filter((d) =>
-            fromYearDeviations.includes(d.split("item-")[1])
-          );
-        }
-        else if (filters["from"]) {
-          // iterate over each key in deviations by year
-          // append that year's list if that year is >= from
-          let fromYearDeviations = [];
-          for (let year in this.#deviationsByYear) {
-            if (year >= filters["from"]) {
-              fromYearDeviations.push(...this.#deviationsByYear[year]);
-            }
-          }
-
-          deviationIds = deviationIds.filter((d) =>
-            fromYearDeviations.includes(d.split("item-")[1])
-          );
-        }
-
-        else if (filters["to"]) {
-          // iterate over each key in deviations by year
-          // append that year's list if that year is <= to
-          let fromYearDeviations = [];
-          for (let year in this.#deviationsByYear) {
-            if (year <= filters["to"]) {
-              fromYearDeviations.push(...this.#deviationsByYear[year]);
-            }
-          }
-
-          deviationIds = deviationIds.filter((d) =>
-            fromYearDeviations.includes(d.split("item-")[1])
-          );
-        }
-
-        for (let tagName in this.#deviationsByTag) {
-          if (tagName in filters["tags"]) {
-            for (let tag in this.#deviationsByTag[tagName]) {
-              if (filters["tags"][tagName].includes(tag)) {
-                deviationIds = deviationIds.filter((d) =>
-                  this.#deviationsByTag[tagName][tag].includes(
-                    d.split("item-")[1]
-                  )
-                );
-              }
-            }
-          }
-        }
-
-        for (let id of deviationIds) {
-          this.#shadowRoot
-            .querySelectorAll(`#${id}`)[0]
-            .classList.remove("hidden");
-        }
       }
 
       // Approach from Andy Barefoot

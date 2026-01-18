@@ -7,19 +7,41 @@
     background-color: var(--gallery-background-color);
     min-height: 100%;
     max-height: 100%;
-    overflow-y: scroll;
   }
 
   .content {
     padding: 2rem;
     display: grid;
     grid-gap: 20px;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(25%, 1fr));
     grid-auto-rows: 20px;
   }
 
   .hidden {
     display: none;
+  }
+
+  .paginator {
+    margin-top: auto;
+    width: 100%;
+    display: flex;
+    margin-bottom: 2rem;
+  }
+
+  .paginator devi-paginator {
+    flex-grow: 1;
+  }
+
+  @media (max-width: 1080px) {
+    .content {
+      grid-template-columns: repeat(auto-fill, minmax(33%, 1fr));
+    }
+  }
+
+  @media (max-width: 768px) {
+    .content {
+      grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+    }
   }
 </style>
 
@@ -30,4 +52,7 @@
     <slot name="title"></slot>
   </span>
   <div class="content"></div>
+  <div class="paginator">
+    <devi-paginator></devi-paginator>
+  </div>
 </div>

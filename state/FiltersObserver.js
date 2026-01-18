@@ -3,19 +3,6 @@ class FiltersObserver {
 
   constructor() {
     this.observers = [];
-    /*
-      {
-        all: {
-          years: []
-          tags: {tagName: [tag]}
-        }
-        active: {
-          from
-          to
-          tags: {tagName: [tag]}
-        }
-      }
-    */
     this.#filters = { tags: {} };
   }
 
