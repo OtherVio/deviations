@@ -2,6 +2,7 @@ class ThemeService {
   title;
   description;
   footer;
+  about;
 
   constructor() {
     this.observers = [];
@@ -62,6 +63,13 @@ class ThemeService {
       .then((stream) => stream.text())
       .then((txt) => {
         this.footer = marked.parse(txt);;
+        this.notifyObservers();
+      })
+
+    fetch("/theme/about.txt")
+      .then((stream) => stream.text())
+      .then((txt) => {
+        this.about = marked.parse(txt);;
         this.notifyObservers();
       })
   }

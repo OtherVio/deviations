@@ -7,13 +7,17 @@ body {
   color: var(--text-color);
 }
 
+a {
+  color: var(--text-color);
+}
+
 .main {
   display: flex;
   height: 100%;
   width: 100%;
 }
 
-.main devi-gallery {
+.main devi-gallery, .main devi-about {
   flex-grow: 1;
 }
 

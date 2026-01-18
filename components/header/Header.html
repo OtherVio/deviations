@@ -11,6 +11,18 @@
         overflow-x: hidden;
     }
 
+    a.home {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        align-items: center;
+        text-decoration: none;
+    }
+
+    h1 {
+        margin-bottom: 0;
+    }
+
     .home {
         display: flex;
         justify-content: center;
@@ -20,8 +32,9 @@
     .avatar {
         display: block;
         border-radius: 50%;
-        max-width: 200px;
+        width: 150px;
         margin-top: 2rem;
+        aspect-ratio: 1 / 1;
     }
 
     .content {
@@ -59,14 +72,15 @@
 <div class="panel">
     <a class="home" href="/">
         <img class="avatar" src="/theme/images/avatar.jpg" />
+        <h1>
+        </h1>
     </a>
-    <h1>
-        </h2>
-        <span class="description"></span>
-        <div class="content">
-            <devi-filters></devi-filters>
-        </div>
-        <span class="footer">
-            <devi-footer></devi-footer>
-        </span>
+
+    <span class="description"></span>
+    <div class="content">
+        <devi-filters></devi-filters>
+    </div>
+    <span class="footer">
+        <devi-footer></devi-footer>
+    </span>
 </div>
