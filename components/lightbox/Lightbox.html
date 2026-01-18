@@ -26,16 +26,6 @@
     align-items: center;
   }
 
-  #previous,
-  #next {
-    position: fixed;
-    top: 45%;
-    font-size: 4rem;
-    background-color: none;
-    font-weight: bold;
-    cursor: pointer;
-  }
-
   button,
   input[type="submit"],
   input[type="reset"] {
@@ -48,19 +38,11 @@
     outline: inherit;
   }
 
-  #previous {
-    left: 5%;
-  }
-
-  #next {
-    right: 5%;
-  }
-
   #close {
     position: fixed;
     top: 2rem;
     right: 2rem;
-    font-size: 4rem;
+    font-size: 2rem;
     background-color: none;
     font-weight: bold;
     color: white;
@@ -70,40 +52,14 @@
   .hidden {
     display: none;
   }
-
-  @media (max-width: 500px) {
-    #previous,
-    #next {
-      top: auto;
-      bottom: 5%;
-    }
-
-    #previous, #next, #close {
-      font-size: 2rem;
-    }
-
-    #previous {
-      left: 30%;
-    }
-
-    #next {
-      right: 30%;
-    }
-  }
 </style>
 
 <script></script>
 
 <div class="content">
-  <dialog
-    id="lightbox"
-    closedby="any"
-    onclose="window.lightboxService.closeLightbox()"
-  >
-    <button id="previous" title="Previous"><</button>
+  <dialog id="lightbox" closedby="any" onclose="window.lightboxService.closeLightbox()">
     <div id="lightbox-content"></div>
-    <button id="next" title="Next">></button>
-    <a href="/#" id="close" title="Close">x</button>
+    <button id="close" title="Close">x</button>
   </dialog>
 </div>
 <output></output>

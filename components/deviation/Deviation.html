@@ -12,6 +12,11 @@
     cursor: pointer;
   }
 
+  .content {
+    display: flex;
+    justify-content: center;
+  }
+
   .content img {
     max-width: 100%;
     max-height: 80vh;
@@ -26,10 +31,43 @@
     width: 100%;
     text-align: center;
   }
+
+  .additional {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    gap: 3ch;
+  }
+
+  .description {
+    max-width: 80%;
+  }
+
+  .next,
+  .previous {
+    color: var(--panel-background-color);
+    text-decoration: none;
+    font-size: 4em;
+    background: none;
+    color: inherit;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    outline: inherit;
+  }
+
+  .hidden {
+    display: none;
+  }
 </style>
 
 <script></script>
 
 <div class="box scale">
   <div class="content"></div>
+  <div class="additional">
+    <button class="previous" title="Previous">&#8592;</button>
+    <div class="description"></div>
+    <button class="next" title="Next">&#8594;</button>
+  </div>
 </div>

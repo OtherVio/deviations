@@ -85,18 +85,43 @@ fetch("/components/deviation/Deviation.html")
       render() {
         if (!this.image) return;
 
-        const content = this.shadowRoot.querySelectorAll(".content")[0];
-        content.innerHTML = `<a href="#${
-          this.deviationName ? this.deviationName : ""
-        }"><img loading="lazy" src="/deviations/images/${
-          this.image
-        }" onload="window.imageLoading.loaded('${this.deviationName}')"/></a>`;
+        const content = this.shadowRoot.querySelector(".content");
+        content.innerHTML = `<a href="#${this.deviationName ? this.deviationName : ""
+          }"><img loading="lazy" src="/deviations/images/${this.image
+          }" onload="window.imageLoading.loaded('${this.deviationName}')"/></a>`;
 
         if (!this.#thumbnail) {
-          this.shadowRoot.querySelectorAll(".box")[0].classList.remove("scale");
-          content.innerHTML += marked.parse(this.#markdown);
+          const description = this.shadowRoot.querySelector(".description");
+          description.innerHTML += marked.parse(this.#markdown);
+          this.shadowRoot.querySelector(".additional").classList.remove("hidden");
+          this.shadowRoot.querySelector(".box").classList.remove("scale");
         } else {
-          this.shadowRoot.querySelectorAll(".box")[0].classList.add("scale");
+          this.shadowRoot.querySelector(".additional").classList.add("hidden");
+          this.shadowRoot.querySelector(".box").classList.add("scale");
+        }
+
+        let nextButton = this.shadowRoot.querySelector(".next");
+        let prevButton = this.shadowRoot.querySelector(".previous");
+
+        nextButton.onclick = () => {
+          window.lightboxService.next();
+          this.render.bind(this)();
+        };
+        prevButton.onclick = () => {
+          window.lightboxService.previous();
+          this.render.bind(this)();
+        };
+
+        if (window.lightboxService.hasNext()) {
+          nextButton.classList.remove("hidden");
+        } else {
+          nextButton.classList.add("hidden");
+        }
+
+        if (window.lightboxService.hasPrevious()) {
+          prevButton.classList.remove("hidden");
+        } else {
+          prevButton.classList.add("hidden");
         }
       }
     }
